@@ -1,0 +1,20 @@
+body {
+    background-color: #1a1d1e;
+}
+.q-drawer {
+    /*top: 8em !important;*/
+    z-index: 2 !important;
+}
+.drawer {
+    /*top: 8em !important;*/
+    z-index: 2;
+}
+.q-drawer--on-top {
+    z-index: 2 !important;
+}
+.q-layout, .q-layout--standard {
+    width: 30vw;
+}
+
+
+
