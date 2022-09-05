@@ -7,8 +7,8 @@ import axios from 'axios'
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 
-import App from './App.vue'
-import router from './router/index.js'
+import App from '../App.vue'
+import router from '../router/index.js'
 
 const myApp = createApp(App).use(router)
 
@@ -16,12 +16,33 @@ export const store = createStore({
     state () {
         return {
             selectedArticle: '',
-            articleContent: ''
+            articleContent: '',
+            categoryLinkClicked: '',
+            categoryPageSelected: false,
         }
+    },
+    getters: {
+      getCategoryLink(state) {
+          return state.categoryLinkClicked
+      },
+      isCategoryPageSelected(state) {
+          return state.categoryPageSelected
+      }
     },
     mutations: {
         modifySelectedArticle: (state, articleData) => {
             state.selectedArticle = articleData
+        },
+        selectCategoryPage: (state, bool) => {
+            if (!bool) {
+                state.categoryPageSelected = false
+            }
+            else {
+                state.categoryPageSelected = true
+            }
+        },
+        setCategoryLink: (state, category) => {
+            state.categoryLinkClicked = category
         },
         retrieveArticleContent: (state, url) => {
             const { JSDOM } = require('jsdom');

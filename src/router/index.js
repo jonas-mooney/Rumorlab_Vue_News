@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NewsContentMiddle from '../components/main/contentMiddle/NewsContentMiddle.vue'
 import Search from '../components/main/contentMiddle/Search.vue'
-import SelectedSearch from "../components/main/contentMiddle/SelectedSearch.vue";
 import SingleArticle from "../components/main/contentMiddle/SingleArticle.vue";
+import CategorySelect from "../components/main/contentMiddle/CategoryOptions.vue";
+import SelectedCategory from "../components/main/contentMiddle/SelectedCategoryView.vue";
+import Login from "../components/main/contentMiddle/Login.vue";
 
 const routes = [
     { path: '/', component: NewsContentMiddle },
     { path: '/search', component: Search },
     { path: '/article', component: SingleArticle },
-    // { path: '/categories',  component: CategorySelect },
-    // { path: '/login', component: Login }
+    { path: '/categories',  component: CategorySelect },
+    { path: '/selectedCategory', component: SelectedCategory },
+    { path: '/login', component: Login }
 ]
 
 const router = createRouter({

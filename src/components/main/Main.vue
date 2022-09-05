@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <SideNav />
+<!--    <SideNav />-->
 <!--    <NewsContentMiddle />-->
-    <ContentRight />
+<!--    <ContentRight />-->
   </div>
 </template>
 

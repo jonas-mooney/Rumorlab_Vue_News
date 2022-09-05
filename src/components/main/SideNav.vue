@@ -1,9 +1,16 @@
 <template>
   <div id="q-app" style="min-height: 100vh;">
-    <q-btn flat @click="drawer = !drawer" round dense icon="menu"></q-btn>
+    <q-btn
+        flat
+        @click="drawer = !drawer"
+        round
+        dense
+        color="white"
+        icon="menu"
+    ></q-btn>
 
     <div>
-      <q-layout view="hHh Lpr lff" >
+      <q-layout view="hHh Lpr lff" class="shadow-2 rounded-borders">
 
         <q-drawer
             v-model="drawer"
@@ -18,56 +25,61 @@
             :width="200"
             :breakpoint="500"
             bordered
-            class="bg-grey-3 drawer q-drawer"
+            class="bg-grey-3"
         >
 
-          <q-list padding>
+          <q-list>
 
-              <q-item clickable v-ripple>
-                <q-item-section avatar>
-                  <q-icon name="home"></q-icon>
-                </q-item-section>
-                <q-item-section>
-                  <router-link to="/">Home</router-link>
-                </q-item-section>
+              <q-item class="navItem" clickable v-ripple>
+                <router-link class="navLink" style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(false)" to="/">
+                  <q-item-section avatar>
+                    <q-icon name="home"></q-icon>
+                  </q-item-section>
+                  <q-item-section>
+                    Home
+                  </q-item-section>
+                </router-link>
               </q-item>
 
-              <q-item active clickable v-ripple>
+            <q-item class="navItem" clickable v-ripple>
+              <router-link class="navLink" style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(false)" to="/search">
                 <q-item-section avatar>
                   <q-icon name="search"></q-icon>
                 </q-item-section>
-
                 <q-item-section>
-                  <router-link to="/search">Search</router-link>
+                  Search
                 </q-item-section>
-              </q-item>
+              </router-link>
+            </q-item>
 
-              <q-item clickable v-ripple>
+            <q-item class="navItem" clickable v-ripple>
+              <router-link class="navLink" style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(true)" to="/categories">
                 <q-item-section avatar>
                   <q-icon name="category"></q-icon>
                 </q-item-section>
-
                 <q-item-section>
                   Categories
                 </q-item-section>
-              </q-item>
+              </router-link>
+            </q-item>
 
               <q-separator></q-separator>
 
-              <q-item clickable v-ripple>
+            <q-item class="navItem" clickable v-ripple>
+              <router-link class="navLink" style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(false)" to="/">
                 <q-item-section avatar>
                   <q-icon name="login"></q-icon>
                 </q-item-section>
-
                 <q-item-section>
                   Login
                 </q-item-section>
-              </q-item>
+              </router-link>
+            </q-item>
             </q-list>
         </q-drawer>
 <!-- Main content container below -->
         <q-page-container class="pageContainer">
-          <router-view></router-view>
+          <router-view />
         </q-page-container>
 
       </q-layout>
@@ -86,6 +98,11 @@ export default {
       drawer: ref(false),
       miniState: ref(true),
     }
+  },
+  methods: {
+    handleCategoryClick(bool) {
+      this.$store.commit('selectCategoryPage', bool)
+    }
   }
 }
 </script>
@@ -93,6 +110,12 @@ export default {
 <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\️-->
 
 <style scoped>
+  .navLink {
+    display: flex;
+  }
+  .navItem:hover {
+    background-color: #009688;
+  }
   .q-drawer {
     /*top: 8em !important;*/
     z-index: 0 !important;
@@ -100,14 +123,6 @@ export default {
   .drawer {
     /*top: 8em !important;*/
     z-index: 0;
-  }
-  .q-drawer--on-top {
-    z-index: 0 !important;
-  }
-  .helpMe {
-    z-index: 0;
-    top: 8em;
-    background-color: blue;
   }
 
   .pageContainer {

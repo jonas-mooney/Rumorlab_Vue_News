@@ -1,15 +1,19 @@
 <template>
 <div class="categoryLinks">
   <q-chip style="padding-left: 1.7em" clickable class="chip" square icon="laptop" color="blue" >
-    <h6>Tech</h6>
+    <router-link style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(false, 'Tech')" to="/selectedCategory">
+      <h6>Tech</h6>
+    </router-link>
   </q-chip>
   <q-chip clickable class="chip" square icon="business" color="blue" >
-    <h6>Business</h6>
+    <router-link style="text-decoration: none; color: rgba(0, 0, 0, 0.87);" @click="handleCategoryClick(false, 'Business')" to="/selectedCategory">
+      <h6>Business</h6>
+    </router-link>
   </q-chip>
   <q-chip clickable class="chip" square icon="handshake" color="blue" >
     <h6>Politics</h6>
   </q-chip>
-  <q-chip style="padding-left: 1.7em" clickable class="chip" square icon="sports_soccer" color="blue" >
+  <q-chip style="padding-left: 1.5em" clickable class="chip" square icon="sports_soccer" color="blue" >
     <h6>Sports</h6>
   </q-chip>
   <q-chip clickable class="chip" square icon="air" color="blue" >
@@ -36,18 +40,38 @@
   <q-chip clickable class="chip" square icon="work" color="blue" >
     <h6>Careers</h6>
   </q-chip>
-<!--  <q-chip clickable class="chip" square icon="school" color="blue" >-->
-<!--    <h6>Education</h6>-->
-<!--  </q-chip>-->
-<!--  <q-chip clickable class="chip" square icon="biotech" color="blue" >-->
-<!--    <h6>Science</h6>-->
-<!--  </q-chip>-->
+  <q-chip clickable class="chip" square icon="school" color="blue" >
+    <h6>Education</h6>
+  </q-chip>
+  <q-chip clickable class="chip" square icon="biotech" color="blue" >
+    <h6>Science</h6>
+  </q-chip>
+  <q-chip clickable class="chip" square icon="videogame_asset" color="blue" >
+    <h6>Gaming</h6>
+  </q-chip>
+  <q-chip clickable class="chip" square icon="price_change" color="blue" >
+    <h6>Stocks</h6>
+  </q-chip>
+  <q-chip clickable class="chip" square icon="rocket_launch" color="blue" >
+    <h6>Space</h6>
+  </q-chip>
+  <q-chip clickable class="chip" square icon="public" color="blue" >
+    <h6>World</h6>
+  </q-chip>
 </div>
 </template>
 
 <script>
 export default {
-  name: "CategoryLinks"
+  name: "CategoryLinks",
+  methods: {
+    handleCategoryClick(bool, category) {
+      this.$store.commit('selectCategoryPage', bool)
+      this.$store.commit('setCategoryLink', category)
+      // console.log(this.$store.state.categoryPageSelected)
+      // console.log(this.$store.state.categoryLinkClicked)
+    }
+  }
 }
 </script>
 
@@ -71,6 +95,7 @@ h6 {
   margin: 0;
   padding: 0;
   font-size: small;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 604px) {

@@ -1,5 +1,6 @@
 <template>
-  <q-input
+  <div class="searchAndResults">
+    <q-input
       class="searchBar"
       label-color="black"
       outlined
@@ -9,16 +10,20 @@
       label="Search"
       @keyup.enter="handleSubmit"
       clearable
-  />
-    <div v-for="article in articles" class="middleContent">
-      <router-link class="routerWrapper" to="/article">
-    <span @click="articleToStore(article)">
-      <img class="articleImage" v-bind:src="article.urlToImage">
-      <p class="authorName">{{ article.author }}</p>
-      <h5 class="articleTitle">{{ article.title }}</h5>
-    </span>
-      </router-link>
+    />
+
+    <img class="searchPlaceholder" v-show="!articles" src="../../../assets/modern.jpg">
+      <div v-for="article in articles" class="middleContent">
+        <router-link class="routerWrapper" to="/article">
+      <span @click="articleToStore(article)">
+        <img class="articleImage" v-bind:src="article.urlToImage">
+        <p class="authorName">{{ article.author }}</p>
+        <h5 class="articleTitle">{{ article.title }}</h5>
+      </span>
+        </router-link>
+    </div>
   </div>
+
 
 </template>
 
@@ -27,6 +32,9 @@
 import axios from 'axios'
 export default {
   name: "Search",
+  beforeMount() {
+    this.$store.commit('selectCategoryPage', false)
+  },
   data () {
     return {
       articles: null,
@@ -44,6 +52,10 @@ export default {
     },
     handleSelectedArticle(article) {
       console.log(article)
+    },
+    articleToStore(data) {
+      this.$store.commit('modifySelectedArticle', data),
+          this.$store.commit('retrieveArticleContent', data.url)
     }
   }
 }
@@ -63,11 +75,18 @@ function formatDate(date) {
 
 <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\️-->
 <style scoped>
+.searchAndResults {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  max-width: 510px;
+}
 .searchBar {
+  width: auto;
   margin-bottom: 30px;
-  z-index: -2;
   background-color: #eeeeee;
   border-radius: 5px;
+  height: 2.9em;
 }
 .headlineTitle {
   width: 30vw;
@@ -110,6 +129,10 @@ function formatDate(date) {
 }
 .articleTitle:hover {
   text-decoration: underline;
+}
+.searchPlaceholder {
+  border-radius: 5px;
+  opacity: .6;
 }
 
 </style>
