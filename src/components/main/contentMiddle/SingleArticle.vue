@@ -31,7 +31,7 @@ export default {
 .articleImage {
   width: 60vw;
   height: auto;
-  border-radius: 16px;
+  border-radius: 5px;
   cursor: pointer;
 }
 .authorName {

@@ -1,14 +1,16 @@
 <template>
-  <h4 class="headlineTitle">USA Headlines</h4>
-  <div v-for="article in articles" class="middleContent">
-<!--    <p>{{ article }}</p>-->
-    <router-link class="routerWrapper" to="/article">
-    <span @click="articleToStore(article)">
-      <img class="articleImage" v-bind:src="article.urlToImage">
-      <p class="authorName">{{ article.author }}</p>
-      <h5 class="articleTitle">{{ article.title }}</h5>
-    </span>
-    </router-link>
+  <div class="wrapper">
+    <h4 class="headlineTitle">USA Headlines</h4>
+    <div v-for="article in articles" class="middleContent">
+  <!--    <p>{{ article }}</p>-->
+      <router-link class="routerWrapper" to="/article">
+      <span @click="articleToStore(article)">
+        <img class="articleImage" v-bind:src="article.urlToImage">
+        <p class="authorName">{{ article.author }}</p>
+        <h5 class="articleTitle">{{ article.title }}</h5>
+      </span>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -16,6 +18,15 @@
 import axios from 'axios'
 export default {
   name: "newsContentMiddle",
+  beforeCreate() {
+    axios
+        .get('https://newsapi.org/v2/top-headlines?country=us&apiKey=a83555195f9544f495999c02f25586cd\n')
+        .then(response => this.articles = response.data.articles)
+        .catch(err => console.log(err))
+  },
+  beforeMount() {
+    this.$store.commit('selectCategoryPage', false)
+  },
   data () {
     return {
       articles: null
@@ -26,20 +37,13 @@ export default {
       this.$store.commit('modifySelectedArticle', data),
       this.$store.commit('retrieveArticleContent', data.url)
     }
-  },
-  mounted() {
-    axios
-        .get('https://newsapi.org/v2/top-headlines?country=us&apiKey=a83555195f9544f495999c02f25586cd\n')
-        .then(response => this.articles = response.data.articles)
-        .catch(err => console.log(err))
-        console.log('API call has been made')
   }
 }
 </script>
 
 <style scoped>
   .headlineTitle {
-    width: 30vw;
+    width: 9em;
     padding: 0;
     margin: 0 0 30px;
     color: #ffffff;
@@ -78,6 +82,11 @@ export default {
   }
   .articleTitle:hover {
     text-decoration: underline;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    /*margin-left: 4em;*/
   }
 
 </style>
